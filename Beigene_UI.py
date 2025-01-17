@@ -118,7 +118,7 @@ with st.sidebar:
             st.session_state.transcript = "completed"
 
     st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
-st.image('images/BGNE_BIG.svg', width=200)
+st.image('BGNE_BIG.svg', width=200)
 
 # cols= st.columns([0.2,0.8])
 # with cols[0]:

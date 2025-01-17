@@ -4,12 +4,12 @@ import os
 
 
 avatars = {
-    "assistant" : "images/gemini-logo.svg",
-    "user": "images/VG.png"
+    "assistant" : "gemini-logo.svg",
+    "user": "VG.png"
 }
 
 # Page Configurations
-st.set_page_config(page_title="HawkAI", page_icon="images/gemini-logo.svg", layout="wide")
+st.set_page_config(page_title="HawkAI", page_icon="gemini-logo.svg", layout="wide")
 
 # Custom CSS for styling
 st.markdown(""" 
@@ -147,34 +147,34 @@ with tabs[0]:
 
 # Chat Input Section
 if question := st.chat_input("Ask HawkAI"):
-    if uploaded_transcript:    
-        with chat_container:
-            # Display previous chat messages
-            for i, entry in enumerate(st.session_state.hist_list):
-                if i % 2 == 0:
-                    chat_container.chat_message("user",avatar=avatars["user"]).markdown(
-                        entry, unsafe_allow_html=True)
-                else:
-                    chat_container.chat_message("assistant",avatar=avatars["assistant"]).markdown(
-                        entry,unsafe_allow_html=True)
+    # if uploaded_transcript:    
+    with chat_container:
+        # Display previous chat messages
+        for i, entry in enumerate(st.session_state.hist_list):
+            if i % 2 == 0:
+                chat_container.chat_message("user",avatar=avatars["user"]).markdown(
+                    entry, unsafe_allow_html=True)
+            else:
+                chat_container.chat_message("assistant",avatar=avatars["assistant"]).markdown(
+                    entry,unsafe_allow_html=True)
 
-            # Display the new user question
-            chat_container.chat_message("user",avatar=avatars["user"]).markdown(
-                question,unsafe_allow_html=True)
+        # Display the new user question
+        chat_container.chat_message("user",avatar=avatars["user"]).markdown(
+            question,unsafe_allow_html=True)
 
-            # Get the assistant's response
-            answer = qna.get_answer(question, st.session_state.hist, clean_transcript)
+        # Get the assistant's response
+        answer = qna.get_answer(question, st.session_state.hist, clean_transcript)
 
-            # Display the assistant's response
-            chat_container.chat_message("assistant",avatar=avatars["assistant"]).markdown(
-                answer,unsafe_allow_html=True)
+        # Display the assistant's response
+        chat_container.chat_message("assistant",avatar=avatars["assistant"]).markdown(
+            answer,unsafe_allow_html=True)
 
-        # Update chat history
-        st.session_state.hist_list.append(question)
-        st.session_state.hist_list.append(answer)
+    # Update chat history
+    st.session_state.hist_list.append(question)
+    st.session_state.hist_list.append(answer)
 
-        # Keep the last 5 interactions in the history
-        st.session_state.hist = "\n\n".join(st.session_state.hist_list[-5:])
-    else:
-        st.warning("Please upload the transcript")
+    # Keep the last 5 interactions in the history
+    st.session_state.hist = "\n\n".join(st.session_state.hist_list[-5:])
+    # else:
+    #     st.warning("Please upload the transcript")
 

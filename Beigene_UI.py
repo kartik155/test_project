@@ -110,10 +110,13 @@ with st.sidebar:
         "Upload your transcript here", type=['txt', 'docx'], key="Transcript_Upload", label_visibility="collapsed")
             
         if uploaded_transcript:
-            bytes_data = uploaded_transcript.read()
-            file_name = os.path.join("./", uploaded_transcript.name)
-            with open(file_name, "r", encoding="utf-8") as file:
-                clean_transcript = file.read()
+            # bytes_data = uploaded_transcript.read()
+            # file_name = os.path.join("./", uploaded_transcript.name)
+            # with open(file_name, "r", encoding="utf-8") as file:
+            #     clean_transcript = file.read()
+
+            clean_transcript = uploaded_transcript.read()
+            
             st.success("✅ Transcript uploaded successfully")
             st.session_state.transcript = "completed"
 

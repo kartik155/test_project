@@ -117,7 +117,7 @@ st.markdown(" ### Enter the Youtube Link:")
 # with h_cols[1]:
 #     st.write("")
 #     st.markdown("<div class='header'> Enter the Youtube Link </div>",unsafe_allow_html=True)
-st.session_state.url=st.text_input(":yt:")
+st.session_state.url=st.text_input("")
 
 
 # Custom Text Input with Icon

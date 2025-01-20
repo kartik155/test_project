@@ -1,21 +1,9 @@
 import streamlit as st
-import QnA_model as qna
-import os
 
-
-avatars = {
-    "assistant" : "gemini-logo.svg",
-    "user": "VG.png"
-}
-
-# Page Configurations
-st.set_page_config(page_title="HawkAI", page_icon="gemini-logo.svg", layout="wide")
-
-# Custom CSS for stylingimport streamlit as st
 import QnA_model as qna
 import os
 import tempfile
-from streamlit_extras.stylable_container import stylable_container
+# from streamlit_extras.stylable_container import stylable_container
 import time
 
 avatars = {

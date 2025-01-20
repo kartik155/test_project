@@ -16,3 +16,4 @@ langchain-pinecone
 plotly
 pytube
 yt-dlp
+streamlit-authenticator

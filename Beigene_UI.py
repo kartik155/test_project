@@ -7,12 +7,12 @@ import tempfile
 import time
 
 avatars = {
-    "assistant" : "images/gemini-logo.svg",
-    "user": "images/VG.png"
+    "assistant" : "gemini-logo.svg",
+    "user": "VG.png"
 }
 
 # Page Configurations
-st.set_page_config(page_title="HawkAI", page_icon="images/gemini_avatar.png", layout="wide")
+st.set_page_config(page_title="HawkAI", page_icon="gemini_avatar.png", layout="wide")
 
 # Custom CSS for styling
 st.markdown(""" 
@@ -108,13 +108,13 @@ with st.sidebar:
     st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
 
 # st.image('BGNE_BIG.svg', width=200)
-st.logo('images/BGNE_BIG.svg')
+st.logo('BGNE_BIG.svg')
 st.markdown(" ### Enter the Youtube Link:")
 
 # h_cols=st.columns([0.03,0.97])
 # with h_cols[0]:
 #     # st.write("")
-#     st.image("images/youtube-icon.svg",width=5,use_container_width=True)
+#     st.image("youtube-icon.svg",width=5,use_container_width=True)
 # with h_cols[1]:
 #     st.write("")
 #     st.markdown("<div class='header'> Enter the Youtube Link </div>",unsafe_allow_html=True)

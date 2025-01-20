@@ -1,0 +1,24 @@
+
+credentials:
+  usernames:
+    Vivek:
+      email: vivek.gaur@beigene.com
+      name: Vivek Gaur
+      password: 1qaz!QAZ 
+    Kartik:
+      email: kartik.mehboobani@begouconsulting.com
+      name: Kartik Mehboobani
+      password: 3edc#EDC 
+    Sudeeksha:
+      email: sudeeksha.kura@beigene.com
+      name: Sudeeksha Kura
+      password: 2wsx@WSX
+    Vineet:
+      email: Vineet.mishra@beghouconsulting.com
+      name: Vineet Mishra
+      password: 4rfv$RFV
+cookie:
+  expiry_days: 30
+  key: HawkAI_UI # Must be string
+  name: HawkAI
+

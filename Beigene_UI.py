@@ -16,7 +16,7 @@ avatars = {
 
 # Page Configurations
 st.set_page_config(page_title="HawkAI", page_icon="gemini_avatar.png", layout="wide")
-st.logo('BGNE_BIG.svg')
+# st.logo('BGNE_BIG.svg')
 
 # def get_image_as_base64(file_path):
 #     """
@@ -68,7 +68,13 @@ custom_css=f"""
 """
 
 st.markdown(custom_css,unsafe_allow_html=True)
-st.image("Header_logo.png",width=150)
+st.logo('Header_logo.png')
+
+main_cols = st.columns(8)
+with main_cols[7]:
+    st.image("BGNE_BIG.svg")
+
+# st.image("Header_logo.png",width=150)
 
 authenticator.login()
 # name, authentication_status, username = authenticator.login('Login', location='main')

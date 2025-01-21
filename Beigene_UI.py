@@ -45,6 +45,7 @@ custom_css=f"""
 """
 
 st.markdown(custom_css,unsafe_allow_html=True)
+st.image("Header_logo.png",width=150)
 
 authenticator.login()
 # name, authentication_status, username = authenticator.login('Login', location='main')

@@ -74,6 +74,7 @@ with main_cols[0]:
     st.image('Header_logo.png', width=150)
 
 with main_cols[7]:
+    st.write("")
     st.image("BGNE_BIG.svg", width=150)
 
 # st.image("Header_logo.png",width=150)

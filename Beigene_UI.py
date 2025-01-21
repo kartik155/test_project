@@ -76,6 +76,7 @@ with main_cols[0]:
 with main_cols[7]:
     st.write("")
     st.write("")
+    st.write("")
 
     st.image("BGNE_BIG.svg", width=150)
 

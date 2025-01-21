@@ -68,7 +68,7 @@ custom_css=f"""
 """
 
 st.markdown(custom_css,unsafe_allow_html=True)
-st.image('Header_logo.png')
+st.image('Header_logo.png', width = 150)
 
 main_cols = st.columns(8)
 with main_cols[7]:

@@ -105,6 +105,8 @@ if st.session_state['authentication_status']:
 
     # Sidebar Configuration
     with st.sidebar:
+        st.write(f'Welcome *{st.session_state["name"]}*')
+        authenticator.logout()
         # st.image('BGNE_BIG.svg', use_container_width=True)
         clean_transcript = ""
         # if st.session_state.clicked:    
@@ -167,9 +169,9 @@ if st.session_state['authentication_status']:
 
     if st.session_state.welcome_message==True:
         with chat_container:
-            chat_container.markdown("<div class='welcome-message'> Hello, Vivek </div>", unsafe_allow_html=True)
-            
-            st.session_state.welcome_message = False
+            Name=st.session_state["name"]
+            chat_container.markdown(f"<div class='welcome-message'> Hello, {Name} </div>", unsafe_allow_html=True)
+            st.session_state.welcome_message = False 
 
     # Chat Input Section
     if question := st.chat_input("Ask HawkAI"):

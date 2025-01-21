@@ -28,6 +28,24 @@ authenticator = stauth.Authenticate(
     config['cookie']['expiry_days'],
 )
 
+custom_css=f"""
+<style>
+[data-testid="stMainBlockContainer"] {{
+    width: 100%;
+    padding: 0rem 1rem 5rem;
+
+}}
+
+[data-testid="stBottomBlockContainer"] 
+{{
+    width: 100%;
+    padding: 0rem 1rem 2rem;
+}}
+</style>
+"""
+
+st.markdown(custom_css,unsafe_allow_html=True)
+
 authenticator.login()
 # name, authentication_status, username = authenticator.login('Login', location='main')
 
@@ -130,7 +148,9 @@ if st.session_state['authentication_status']:
 
     # st.image('BGNE_BIG.svg', width=200)
     # st.logo('BGNE_BIG.svg')
-    st.markdown(" ### Enter the Youtube Link:")
+    st.image("Header_logo.png",width=150)
+
+    # st.markdown(" ### Enter the Youtube Link:")
 
     # h_cols=st.columns([0.03,0.97])
     # with h_cols[0]:
@@ -139,7 +159,8 @@ if st.session_state['authentication_status']:
     # with h_cols[1]:
     #     st.write("")
     #     st.markdown("<div class='header'> Enter the Youtube Link </div>",unsafe_allow_html=True)
-    st.session_state.url=st.text_input("")
+    st.session_state.url=st.text_input("",placeholder="Paste the Youtube Link Here")
+
 
 
     # Custom Text Input with Icon

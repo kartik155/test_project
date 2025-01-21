@@ -62,7 +62,7 @@ custom_css=f"""
 [data-testid="stBottomBlockContainer"] 
 {{
     width: 100%;
-    padding: 0rem 1rem 3rem;
+    padding: 0rem 1rem 4rem;
 }}
 </style>
 """

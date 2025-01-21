@@ -2,11 +2,12 @@ import streamlit as st
 import QnA_model as qna
 import os
 import tempfile
-import streamlit_authenticator as stauth
+import base64
 import time
-
+import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
+
 
 avatars = {
     "assistant" : "gemini-logo.svg",
@@ -17,9 +18,31 @@ avatars = {
 st.set_page_config(page_title="HawkAI", page_icon="gemini_avatar.png", layout="wide")
 st.logo('BGNE_BIG.svg')
 
+# def get_image_as_base64(file_path):
+#     """
+#     Convert an image file to a base64-encoded string.
+#     """
+#     with open(file_path, "rb") as f:
+#         data = f.read()
+#     return base64.b64encode(data).decode()
+
+
+# Load the image and encode it to base64
+# image_file = "HawkAI_Logo_CenturyItalic.png"
+# base64_img = get_image_as_base64(image_file)
+
+# # Define background image styling
+# logo_file="logo.png"
+# logo=get_image_as_base64(logo_file)
+# # Define background image styling
+# header_logo_file="Header_logo.png"
+# header_logo=get_image_as_base64(header_logo_file)
+
+# st.image(logo_file)
+
+from yaml.loader import SafeLoader
 with open('.streamlit/config.yaml') as file:
     config = yaml.load(file, Loader=SafeLoader)
-
 
 authenticator = stauth.Authenticate(
     config['credentials'],
@@ -39,7 +62,7 @@ custom_css=f"""
 [data-testid="stBottomBlockContainer"] 
 {{
     width: 100%;
-    padding: 0rem 1rem 2rem;
+    padding: 0rem 1rem 3rem;
 }}
 </style>
 """
@@ -49,6 +72,8 @@ st.image("Header_logo.png",width=150)
 
 authenticator.login()
 # name, authentication_status, username = authenticator.login('Login', location='main')
+
+
 
 
 if st.session_state['authentication_status']:
@@ -104,7 +129,7 @@ if st.session_state['authentication_status']:
         st.session_state.hist_list = []
     if 'hist' not in st.session_state:
         st.session_state.hist = ""
-
+    
     if 'welcome_message' not in st.session_state:
         st.session_state.welcome_message = True
 
@@ -121,6 +146,8 @@ if st.session_state['authentication_status']:
 
     def process():
         st.session_state.process = True
+        st.session_state.hist_list = []
+        st.session_state.hist = ""
 
     # Sidebar Configuration
     with st.sidebar:
@@ -147,11 +174,13 @@ if st.session_state['authentication_status']:
                     clean_transcript = None
         st.sidebar.button("Clear Chat History", on_click=clear_chat_history)
 
-    # st.image('BGNE_BIG.svg', width=200)
-    # st.logo('BGNE_BIG.svg')
-    st.image("Header_logo.png",width=150)
-
+    # st.image('BGNE_BIG.svg', width=200)    
+    # st.image("Header_logo.png",width=150)
     # st.markdown(" ### Enter the Youtube Link:")
+
+    
+
+# Additional logic remains unchanged
 
     # h_cols=st.columns([0.03,0.97])
     # with h_cols[0]:
@@ -163,7 +192,6 @@ if st.session_state['authentication_status']:
     st.session_state.url=st.text_input("",placeholder="Paste the Youtube Link Here")
 
 
-
     # Custom Text Input with Icon
 
 
@@ -172,6 +200,8 @@ if st.session_state['authentication_status']:
     chat_container = st.container()
     with cols[0]:
         st.button("Start Processing", on_click=process)
+            
+
     with cols[1]:
         placeholer=st.empty()
         if st.session_state.process==True:
@@ -193,7 +223,7 @@ if st.session_state['authentication_status']:
         with chat_container:
             Name=st.session_state["name"]
             chat_container.markdown(f"<div class='welcome-message'> Hello, {Name} </div>", unsafe_allow_html=True)
-            st.session_state.welcome_message = False 
+            st.session_state.welcome_message = False        
 
     # Chat Input Section
     if question := st.chat_input("Ask HawkAI"):
@@ -235,3 +265,4 @@ elif st.session_state['authentication_status'] is False:
 elif st.session_state['authentication_status'] is None:
     st.warning('Please enter your username and password')
     # authenticator.logout('Logout', 'main')
+

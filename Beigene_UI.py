@@ -218,7 +218,7 @@ if st.session_state['authentication_status']:
         if st.session_state.process==True:
             if st.session_state.url:
                 with st.spinner("In Progress"):
-                    time.sleep(2)    
+                    time.sleep(5)    
                 placeholer.success("✅ All set! The video has been successfully transcribed, and your Q&A is ready to explore. Dive in and ask away!")
                 # placeholer.success("✅ Process is completed")
                 # Intro="Hey there! I am HawkAI - Your assistant for today. The video is all transcribed and ready. How can I assist you today? "

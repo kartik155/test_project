@@ -77,7 +77,6 @@ with main_cols[7]:
     st.write("")
     st.write("")
     st.write("")
-
     st.image("BGNE_BIG.svg", width=150)
 
 # st.image("Header_logo.png",width=150)
@@ -222,11 +221,11 @@ if st.session_state['authentication_status']:
                     time.sleep(2)    
                 placeholer.success("✅ All set! The video has been successfully transcribed, and your Q&A is ready to explore. Dive in and ask away!")
                 # placeholer.success("✅ Process is completed")
-                Intro="Hey there! I am HawkAI - Your assistant for today. The video is all transcribed and ready. How can I assist you today? "
+                # Intro="Hey there! I am HawkAI - Your assistant for today. The video is all transcribed and ready. How can I assist you today? "
                 
-                chat_container.chat_message("assitant",avatar=avatars["assistant"]).markdown(
-                        Intro, unsafe_allow_html=True)
-                st.session_state.hist_list.append(Intro)
+                # chat_container.chat_message("assitant",avatar=avatars["assistant"]).markdown(
+                #         Intro, unsafe_allow_html=True)
+                # st.session_state.hist_list.append(Intro)
             else:    
                 placeholer.warning("Please enter the Url")
             st.session_state.process=False    
@@ -244,8 +243,8 @@ if st.session_state['authentication_status']:
         with chat_container:
             # Display previous chat messages
             for i, entry in enumerate(st.session_state.hist_list):
-                # if i % 2 == 0:
-                if i % 2 != 0:
+                if i % 2 == 0:
+                # if i % 2 != 0:
                     chat_container.chat_message("user",avatar=avatars["user"]).markdown(
                         entry, unsafe_allow_html=True)
                 else:
@@ -277,4 +276,3 @@ elif st.session_state['authentication_status'] is False:
 elif st.session_state['authentication_status'] is None:
     st.warning('Please enter your username and password')
     # authenticator.logout('Logout', 'main')
-

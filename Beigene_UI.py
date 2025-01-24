@@ -272,7 +272,7 @@ if st.session_state['authentication_status']:
         #     st.warning("Please upload transcript first")
 
 elif st.session_state['authentication_status'] is False:
-#     st.error('Username/password is incorrect')
-# elif st.session_state['authentication_status'] is None:
-#     st.warning('Please enter your username and password')
+    st.error('Username/password is incorrect')
+elif st.session_state['authentication_status'] is None:
+    # st.warning('Please enter your username and password')
     # authenticator.logout('Logout', 'main')

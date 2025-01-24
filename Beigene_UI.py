@@ -274,5 +274,6 @@ if st.session_state['authentication_status']:
 elif st.session_state['authentication_status'] is False:
     st.error('Username/password is incorrect')
 elif st.session_state['authentication_status'] is None:
+    st.write("")
     # st.warning('Please enter your username and password')
     # authenticator.logout('Logout', 'main')

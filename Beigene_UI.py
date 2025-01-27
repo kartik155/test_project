@@ -15,7 +15,7 @@ avatars = {
 }
 
 # Page Configurations
-st.set_page_config(page_title="HawkAI", page_icon="gemini_avatar.png", layout="wide")
+st.set_page_config(page_title="HawkAI", page_icon="gemini_avatar.png", layout="wide",initial_sidebar_state="collapsed")
 # st.logo('BGNE_BIG.svg')
 
 # def get_image_as_base64(file_path):
@@ -113,6 +113,24 @@ if st.session_state['authentication_status']:
             /* padding: 8px; */
                 /*border: 2px solid #2B7795;*/
             }
+            /* Primary Buttons */
+            button[kind="primary"] {
+                background-color: transparent;
+                border: 2px solid #2B7795; 
+                color: #2B7795; 
+                font-size:
+                padding: 16px 40px;
+                border-radius: 8px;
+                cursor: pointer;
+                height: 48px; 
+            }
+
+            button[kind="primary"]:hover {
+                background-color: #15396F;
+                color: white;
+                border-color: #15396F;
+            }    
+            
             /* Buttons */
             button[kind="secondary"] {
                 background-color: #2B7795;
@@ -128,7 +146,33 @@ if st.session_state['authentication_status']:
                 background-color: #15396F;
                 color: white;
             }
-        </style>
+                     .starter-questions-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2B7795; /* Set the color */
+            text-align: center; /* Center the text */
+            text-transform: uppercase; /* Transform text to uppercase */    
+            position: relative; /* Positioning for pseudo-elements */
+        }
+        
+        .starter-questions-header::before, .starter-questions-header::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%); /* Ensure proper vertical alignment */    
+            width: calc(50% - 80px); /* Dynamic length relative to the text */
+            border-bottom: 2px solid #2B7795; /* Line color */
+            display: inline-block;
+        }
+
+        .starter-questions-header::before {
+            left: 0;
+        }
+
+        .starter-questions-header::after {
+            right: 0;
+        }    
+    </style>
     """, unsafe_allow_html=True)
 
 
@@ -150,7 +194,9 @@ if st.session_state['authentication_status']:
         st.session_state.process=False
     if 'url' not in st.session_state:
         st.session_state.url=None
-
+    if 'starter_question' not in st.session_state:
+        st.session_state.starter_question=None
+    
     def clear_chat_history():
         st.session_state.hist_list = []
         st.session_state.hist = ""
@@ -159,7 +205,12 @@ if st.session_state['authentication_status']:
         st.session_state.process = True
         st.session_state.hist_list = []
         st.session_state.hist = ""
-
+    
+    def q1():
+        st.session_state.starter_question="Give me a 30-second summary of the shared content"
+    def q2():
+        st.session_state.starter_question="Provide detailed notes for the content shared above"
+    
     # Sidebar Configuration
     with st.sidebar:
         st.write(f'Welcome *{st.session_state["name"]}*')
@@ -200,13 +251,13 @@ if st.session_state['authentication_status']:
     # with h_cols[1]:
     #     st.write("")
     #     st.markdown("<div class='header'> Enter the Youtube Link </div>",unsafe_allow_html=True)
-    st.session_state.url=st.text_input("",placeholder="Paste the Youtube Link Here")
+    st.session_state.url=st.text_input("",placeholder="Enter the link or file path")
 
 
     # Custom Text Input with Icon
 
 
-    cols=st.columns([0.2,0.8])
+    cols=st.columns([0.2,0.8],vertical_alignment='center')
 
     chat_container = st.container()
     with cols[0]:
@@ -220,6 +271,13 @@ if st.session_state['authentication_status']:
                 with st.spinner("In Progress"):
                     time.sleep(5)    
                 placeholer.success("✅ All set! The video has been successfully transcribed, and your Q&A is ready to explore. Dive in and ask away!")
+                with chat_container:
+                    st.markdown('<div class="starter-questions-header">Examples</div>',unsafe_allow_html=True)
+                    starter_qna_cols = st.columns([0.5, 0.5],vertical_alignment='center')
+                    with starter_qna_cols[0]:
+                        st.button("Give me a 30-second summary of the shared content",on_click=q1,type='primary',use_container_width=True)
+                    with starter_qna_cols[1]:
+                        st.button("Provide detailed notes for the content shared above.",on_click=q2,type='primary',use_container_width=True)
                 # placeholer.success("✅ Process is completed")
                 # Intro="Hey there! I am HawkAI - Your assistant for today. The video is all transcribed and ready. How can I assist you today? "
                 
@@ -237,7 +295,8 @@ if st.session_state['authentication_status']:
             st.session_state.welcome_message = False        
 
     # Chat Input Section
-    if question := st.chat_input("Ask HawkAI"):
+    if question := st.chat_input("Ask Me Anything") or st.session_state.starter_question:
+        st.session_state.starter_question=False
         placeholer.empty()
         # if uploaded_transcript:    
         with chat_container:

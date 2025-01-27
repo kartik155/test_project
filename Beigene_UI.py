@@ -207,7 +207,7 @@ if st.session_state['authentication_status']:
         st.session_state.hist = ""
     
     def q1():
-        st.session_state.starter_question="Give me a 30-second summary of the shared content"
+        st.session_state.starter_question="Give me a one page summary on the shared content"
     def q2():
         st.session_state.starter_question="Provide detailed notes for the content shared above"
     
@@ -275,7 +275,7 @@ if st.session_state['authentication_status']:
                     st.markdown('<div class="starter-questions-header">Examples</div>',unsafe_allow_html=True)
                     starter_qna_cols = st.columns([0.5, 0.5],vertical_alignment='center')
                     with starter_qna_cols[0]:
-                        st.button("Give me a 30-second summary of the shared content",on_click=q1,type='primary',use_container_width=True)
+                        st.button("Give me a one page summary on the shared content",on_click=q1,type='primary',use_container_width=True)
                     with starter_qna_cols[1]:
                         st.button("Provide detailed notes for the content shared above.",on_click=q2,type='primary',use_container_width=True)
                 # placeholer.success("✅ Process is completed")

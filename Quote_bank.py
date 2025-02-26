@@ -202,14 +202,14 @@ def Quote_Bank():
                 file_path = os.path.join(temp_dir, "readme.txt")
                 with open(file_path, "w") as file:
                     file.write(formatted_output)                
-                di.upload_files(file_path)
+                # di.upload_files(file_path)
                 st.success("Form submitted successfully")
                 # st.success(f"File saved at: {file_path}")
                 st.session_state.quote_bank=True
     if st.session_state.quote_bank==True:
         if st.button("Genreate Quote Bank"):
-            df=di.quote_bank()
+            # df=di.quote_bank()
             st.success("Quote bank generated successfully")
-            st.data_editor(df)
+            # st.data_editor(df)
 
                 

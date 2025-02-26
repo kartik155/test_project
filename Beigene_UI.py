@@ -8,9 +8,9 @@ st.set_page_config(page_title="HawkAI", page_icon="Beghou_logo.png", layout="wid
 
     
 # # Replace selectbox with radio button
-page = st.sidebar.radio("", ["Transcript", "Quote Bank"])
+page = st.sidebar.radio("", ["Transcription", "Quote Bank"])
 
-if page == "Transcript":
+if page == "Transcription":
     ct.Clean_Transcript()
 elif page == "Quote Bank":
     qb.Quote_Bank()

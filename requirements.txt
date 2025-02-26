@@ -17,3 +17,4 @@ plotly
 pytube
 yt-dlp
 streamlit-authenticator
+dataiku-api-client

@@ -199,7 +199,7 @@ def Quote_Bank():
     if st.session_state.quote_bank==True:
         if st.button("Genreate Quote Bank"):
             # df=di.quote_bank()
-            # st.success("Quote bank generated successfully")
+            st.success("Quote bank generated successfully")
             # st.data_editor(df)
 
                 

@@ -3,7 +3,7 @@ import Clean_Transcript as ct
 import Quote_bank as qb
 import streamlit as st
 
-st.set_page_config(page_title="HawkAI", page_icon="images/Beghou_logo.png", layout="wide")
+st.set_page_config(page_title="HawkAI", page_icon="Beghou_logo.png", layout="wide")
 
 
     

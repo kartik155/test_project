@@ -10,7 +10,8 @@ import input_params as inp
 import dataiku as di
 import os
 import youtube_video_url as yvu
-
+import transcript as trans
+from datetime import datetime
 def Clean_Transcript():
     custom_css=f"""
     <style>
@@ -169,6 +170,9 @@ def Clean_Transcript():
         st.session_state.upload_button=False
     if "upload_option" not in st.session_state:
         st.session_state.upload_option = False
+    if "video_path" not in st.session_state:
+        st.session_state.video_path = False
+        
     # def clear_chat_history():
     #     st.session_state.hist_list = []
     #     st.session_state.hist = ""
@@ -190,6 +194,10 @@ def Clean_Transcript():
         st.session_state.starter_question="Provide detailed notes for the content shared above"
         st.session_state.starter_question_display="No"
 
+    def is_valid_file(file_name):
+        allowed_extensions = {"mp3", "mp4", "m4a"}
+        return file_name.split(".")[-1].lower() in allowed_extensions
+    
     inp_cols=st.columns([0.8,0.2],vertical_alignment='top')
     with inp_cols[0]:    
         # Define dynamic label before the toggle
@@ -202,7 +210,8 @@ def Clean_Transcript():
         languages = ["English", "Italian","Russian", "German", "French"]
         # Dropdown with default value as "English"
         selected_language = st.selectbox("Select transcription language:", languages, index=languages.index("English"))
-    
+
+
     # Update session state immediately
     if upload_option != st.session_state.upload_option:
         st.session_state.upload_option = upload_option
@@ -212,39 +221,45 @@ def Clean_Transcript():
     if not st.session_state.upload_option:  # Default: Upload Files
         # st.write("Uploading files")
         uploaded_files = st.file_uploader("Upload your files", accept_multiple_files=True)
-        
-        if uploaded_files and st.session_state.upload_button==True:
-            with tempfile.TemporaryDirectory() as temp_dir:
-                for uploaded_file in uploaded_files:
-                    file_path = os.path.join(temp_dir, uploaded_file.name)
-                    
-                    # Save file to temp folder
-                    with open(file_path, "wb") as f:
-                        f.write(uploaded_file.getbuffer())
+        temp_dir = inp.downloaded_folder
+        if not os.path.exists(temp_dir):
+            os.makedirs(temp_dir)
+        for uploaded_file in uploaded_files:
+            if is_valid_file(uploaded_file.name):
                 
-                # Call the function to upload files
-                di.upload_files(temp_dir)
+                file_path = os.path.join(temp_dir,uploaded_file.name)
+                st.session_state.video_path=file_path
+                # Save file to temp folder
+                with open(file_path, "wb") as f:
+                    f.write(uploaded_file.getbuffer())
+            
+            # Call the function to upload files
+            # di.upload_files(temp_dir)
             st.session_state.uploaded="All Files uploaded successfully!"
-
+            # st.write(file_path)
+            
                 # st.success(st.session_state.uploaded)
     else:  # Upload YouTube Link
         # st.write("Paste YouTube URL")
         youtube_link = st.text_input("Paste YouTube link")
-        
+        # st.write(youtube_link)
         if youtube_link and st.session_state.upload_button==True:
-            with tempfile.TemporaryDirectory() as temp_dir:
+            temp_dir=inp.downloaded_folder
+            # with tempfile.TemporaryDirectory() as temp_dir:
                 # Download video to the temporary directory
-                video_path = yvu.download_youtube_video(youtube_link, temp_dir)
+            # st.write(temp_dir)
+            video_path = yvu.download_youtube_video(youtube_link, temp_dir)
+            st.write(video_path)
+            # Rename the video file
+            video_path = yvu.rename_video_path(video_path)
+            print(f"Processed Video Path: {video_path}")
+            st.session_state.video_path=video_path
+            yvu.rename_files(temp_dir)
+            # Upload the processed file to Dataiku
+            # di.upload_files(video_path)
 
-                # Rename the video file
-                video_path = yvu.rename_video_path(video_path)
-                print(f"Processed Video Path: {video_path}")
-                yvu.rename_files(temp_dir)
-                # Upload the processed file to Dataiku
-                di.upload_files(video_path)
-
-                # Store success message in Streamlit session state
-                st.session_state.uploaded = "File uploaded successfully!"
+            # Store success message in Streamlit session state
+            st.session_state.uploaded = "File uploaded successfully!"
                 # st.success(st.session_state.uploaded)
             # st.success(f"Received YouTube link: {youtube_link}")
             # video_path = yvu.download_youtube_video(youtube_link, inp.youtube_download_folder)
@@ -254,6 +269,9 @@ def Clean_Transcript():
             # di.upload_files(video_path)
             # st.session_state.uploaded="Files uploaded to Dataiku successfully!"
             # st.success(st.session_state.uploaded)
+
+    # st.session_state.url=st.text_input("",placeholder="Enter the link or file path")
+
 
     cols=st.columns([0.1,0.1,0.8],vertical_alignment='center')
 
@@ -277,7 +295,9 @@ def Clean_Transcript():
             # st.write(st.session_state.uploaded)
             if st.session_state.uploaded:
                 with st.spinner("In Progress"):   
-                    st.session_state.clean_transcript = di.clean_transcript()
+                    # st.session_state.clean_transcript = di.clean_transcript()
+                    st.session_state.clean_transcript = trans.transcription(st.session_state.video_path)
+
                 # if st.session_state.clean_transcript:
                 #     placeholder_button.download_button("Download Cleaned Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
                 placeholder.success("✅ All set! The video has been successfully transcribed, and your Q&A is ready to explore. Dive in and ask away!")

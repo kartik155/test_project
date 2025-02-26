@@ -6,9 +6,9 @@ import unicodedata
 import shutil
 
 def download_youtube_video(url, save_path="./"):
-    if os.path.exists(save_path):
-        shutil.rmtree(save_path)
-    os.makedirs(save_path)
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+    
     try:        
         # Extract video information without downloading
         with yt_dlp.YoutubeDL({'quiet': True}) as ydl:

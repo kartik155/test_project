@@ -18,7 +18,7 @@ def Quote_Bank():
     client = dataikuapi.DSSClient(dataiku_url, dataiku_api_key,no_check_certificate=True)
     project = client.get_project("HAWKAI")
 
-    # st.set_page_config(page_title="Quote Bank", page_icon="gemini_avatar.png", layout="wide",initial_sidebar_state="collapsed")
+    # st.set_page_config(page_title="Quote Bank", page_icon="images/gemini_avatar.png", layout="wide",initial_sidebar_state="collapsed")
 
     st.session_state.transcript = None
     st.session_state.hist_list = []
@@ -146,12 +146,12 @@ def Quote_Bank():
     main_cols = st.columns(8)
     with main_cols[0]:
         st.write("")
-        st.image('Header_logo.png', width=150)
+        st.image('images/Header_logo.png', width=150)
 
     with main_cols[7]:
         st.write("")
         st.write("")
-        st.image("BGNE_BIG.svg", width=150)
+        st.image("images/BGNE_BIG.svg", width=150)
     # st.markdown("<div class=header-title> Quote Bank Creation </div>",unsafe_allow_html=True)
     # st.title("Quote Bank Creation")
     file_name=di.get_filename()
@@ -193,7 +193,7 @@ def Quote_Bank():
                 with open(file_path, "w") as file:
                     file.write(formatted_output)                
                 di.upload_files(file_path)
-                st.success("Readme file uploaded successfully in dataiku!")
+                st.success("Form submitted successfully")
                 # st.success(f"File saved at: {file_path}")
                 st.session_state.quote_bank=True
     if st.session_state.quote_bank==True:

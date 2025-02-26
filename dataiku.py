@@ -107,8 +107,8 @@ def clean_transcript():
     #          text= file.read()  
     # else:
     
-    # scenario=project.get_scenario("TRANSCRIPT_SCENARIO")
-    # scenario.run_and_wait()    
+    scenario=project.get_scenario("TRANSCRIPT_SCENARIO")
+    scenario.run_and_wait()    
     transcript_folder=project.get_managed_folder("trbcMY5X")
     file=transcript_folder.get_file("Clean_Transcript.txt")
     text=file.content.decode("utf-8")

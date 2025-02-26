@@ -249,7 +249,7 @@ def Clean_Transcript():
                 # Download video to the temporary directory
             # st.write(temp_dir)
             video_path = yvu.download_youtube_video(youtube_link, temp_dir)
-            st.write(video_path)
+            # st.write(video_path)
             # Rename the video file
             video_path = yvu.rename_video_path(video_path)
             print(f"Processed Video Path: {video_path}")

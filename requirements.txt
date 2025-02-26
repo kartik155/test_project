@@ -18,3 +18,9 @@ pytube
 yt-dlp
 streamlit-authenticator
 dataiku-api-client
+ffmpeg
+moviepy
+mutagen
+fuzzywuzzy
+audiofile
+assemblyai

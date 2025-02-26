@@ -9,7 +9,7 @@ import dataiku as di
 from datetime import datetime
 
 def get_today_date():
-    return datetime.today().strftime("%m_%d_%Y")
+    return datetime.today().strftime("%m/%d/%Y")
 
 
 def Quote_Bank():
@@ -162,7 +162,7 @@ def Quote_Bank():
     # file_name=di.get_filename()
     if st.session_state.video_path:
         video_path=os.path.basename(st.session_state.video_path) 
-        file_name=os.path.splitext(video_path)[0]+ f'{get_today_date()}'
+        file_name=os.path.splitext(video_path)[0]+ f' : {get_today_date()}'
     else:
         file_name=""
     selected_name = st.selectbox("Select File name to process for Quote bank:", file_name)

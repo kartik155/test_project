@@ -15,8 +15,8 @@ def Quote_Bank():
     dataiku_url=os.getenv("DATAIKU_URL")
     dataiku_api_key = os.getenv("DATAIKU_API_KEY")
 
-    client = dataikuapi.DSSClient(dataiku_url, dataiku_api_key,no_check_certificate=True)
-    project = client.get_project("HAWKAI")
+    # client = dataikuapi.DSSClient(dataiku_url, dataiku_api_key,no_check_certificate=True)
+    # project = client.get_project("HAWKAI")
 
     # st.set_page_config(page_title="Quote Bank", page_icon="gemini_avatar.png", layout="wide",initial_sidebar_state="collapsed")
 
@@ -154,8 +154,8 @@ def Quote_Bank():
         st.image("BGNE_BIG.svg", width=150)
     # st.markdown("<div class=header-title> Quote Bank Creation </div>",unsafe_allow_html=True)
     # st.title("Quote Bank Creation")
-    file_name=di.get_filename()
-    selected_name = st.selectbox("Select File name to process for Quote bank:", file_name)
+    # file_name=di.get_filename()
+    # selected_name = st.selectbox("Select File name to process for Quote bank:", file_name)
 
     if 'quote_bank' not in st.session_state:
         st.session_state.quote_bank = False
@@ -192,14 +192,14 @@ def Quote_Bank():
                 file_path = os.path.join(temp_dir, "readme.txt")
                 with open(file_path, "w") as file:
                     file.write(formatted_output)                
-                di.upload_files(file_path)
+                # di.upload_files(file_path)
                 st.success("Form submitted successfully")
                 # st.success(f"File saved at: {file_path}")
                 st.session_state.quote_bank=True
     if st.session_state.quote_bank==True:
         if st.button("Genreate Quote Bank"):
-            df=di.quote_bank()
-            st.success("Quote bank generated successfully")
-            st.data_editor(df)
+            # df=di.quote_bank()
+            # st.success("Quote bank generated successfully")
+            # st.data_editor(df)
 
                 

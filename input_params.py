@@ -1,2 +1,2 @@
-youtube_download_folder="youtube_download_folder"
+downloaded_folder="downloaded_video"
 output_folder="outputs"

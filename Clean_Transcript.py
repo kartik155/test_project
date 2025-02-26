@@ -318,8 +318,8 @@ def Clean_Transcript():
         placeholder_download=st.empty() 
         if st.session_state.clean_transcript:
             # placeholder_button.download_button("Download Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
-            # st.session_state.upload_button=False
-            # st.session_state.uploaded=None
+            st.session_state.upload_button=False
+            st.session_state.uploaded=None
             placeholder_download.download_button("Download Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
         # st.write(f"value {st.session_state.starter_question_display}")
         if st.session_state.starter_question_display=="Yes":

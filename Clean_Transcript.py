@@ -190,74 +190,70 @@ def Clean_Transcript():
         st.session_state.starter_question="Provide detailed notes for the content shared above"
         st.session_state.starter_question_display="No"
 
-    
-    # Define dynamic label before the toggle
-    toggle_label = "📂 Switch to Uploading Files" if st.session_state.upload_option else "🔗 Switch to YouTube URL Input"
-    # Toggle button with the correct label
-    upload_option = st.toggle(toggle_label, value=st.session_state.upload_option)
-
     inp_cols=st.columns([0.8,0.2],vertical_alignment='top')
-    with inp_cols[0]:
-    
-        # Update session state immediately
-        if upload_option != st.session_state.upload_option:
-            st.session_state.upload_option = upload_option
-            st.rerun()  # Force Streamlit to refresh and update the label instantly
+    with inp_cols[0]:    
+        # Define dynamic label before the toggle
+        toggle_label = "📂 Switch to Uploading Files" if st.session_state.upload_option else "🔗 Switch to YouTube URL Input"
+        # Toggle button with the correct label
+        upload_option = st.toggle(toggle_label, value=st.session_state.upload_option)
 
-
-        if not st.session_state.upload_option:  # Default: Upload Files
-            # st.write("Uploading files")
-            uploaded_files = st.file_uploader("Upload your files", accept_multiple_files=True)
-            
-            if uploaded_files and st.session_state.upload_button==True:
-                with tempfile.TemporaryDirectory() as temp_dir:
-                    for uploaded_file in uploaded_files:
-                        file_path = os.path.join(temp_dir, uploaded_file.name)
-                        
-                        # Save file to temp folder
-                        with open(file_path, "wb") as f:
-                            f.write(uploaded_file.getbuffer())
-                    
-                    # Call the function to upload files
-                    di.upload_files(temp_dir)
-                st.session_state.uploaded="All Files uploaded successfully!"
-
-                    # st.success(st.session_state.uploaded)
-        else:  # Upload YouTube Link
-            # st.write("Paste YouTube URL")
-            youtube_link = st.text_input("Paste YouTube link")
-            
-            if youtube_link and st.session_state.upload_button==True:
-                with tempfile.TemporaryDirectory() as temp_dir:
-                    # Download video to the temporary directory
-                    video_path = yvu.download_youtube_video(youtube_link, temp_dir)
-
-                    # Rename the video file
-                    video_path = yvu.rename_video_path(video_path)
-                    print(f"Processed Video Path: {video_path}")
-                    yvu.rename_files(temp_dir)
-                    # Upload the processed file to Dataiku
-                    di.upload_files(video_path)
-
-                    # Store success message in Streamlit session state
-                    st.session_state.uploaded = "File uploaded successfully!"
-                    # st.success(st.session_state.uploaded)
-                # st.success(f"Received YouTube link: {youtube_link}")
-                # video_path = yvu.download_youtube_video(youtube_link, inp.youtube_download_folder)
-                # video_path = yvu.rename_video_path(video_path)
-                # print(video_path)
-                # yvu.rename_files(inp.youtube_download_folder)
-                # di.upload_files(video_path)
-                # st.session_state.uploaded="Files uploaded to Dataiku successfully!"
-                # st.success(st.session_state.uploaded)
-
-        # st.session_state.url=st.text_input("",placeholder="Enter the link or file path")
     with inp_cols[1]:
         # List of top 5 European languages
         languages = ["English", "Italian","Russian", "German", "French"]
-
         # Dropdown with default value as "English"
         selected_language = st.selectbox("Select transcription language:", languages, index=languages.index("English"))
+    
+    # Update session state immediately
+    if upload_option != st.session_state.upload_option:
+        st.session_state.upload_option = upload_option
+        st.rerun()  # Force Streamlit to refresh and update the label instantly
+
+
+    if not st.session_state.upload_option:  # Default: Upload Files
+        # st.write("Uploading files")
+        uploaded_files = st.file_uploader("Upload your files", accept_multiple_files=True)
+        
+        if uploaded_files and st.session_state.upload_button==True:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                for uploaded_file in uploaded_files:
+                    file_path = os.path.join(temp_dir, uploaded_file.name)
+                    
+                    # Save file to temp folder
+                    with open(file_path, "wb") as f:
+                        f.write(uploaded_file.getbuffer())
+                
+                # Call the function to upload files
+                di.upload_files(temp_dir)
+            st.session_state.uploaded="All Files uploaded successfully!"
+
+                # st.success(st.session_state.uploaded)
+    else:  # Upload YouTube Link
+        # st.write("Paste YouTube URL")
+        youtube_link = st.text_input("Paste YouTube link")
+        
+        if youtube_link and st.session_state.upload_button==True:
+            with tempfile.TemporaryDirectory() as temp_dir:
+                # Download video to the temporary directory
+                video_path = yvu.download_youtube_video(youtube_link, temp_dir)
+
+                # Rename the video file
+                video_path = yvu.rename_video_path(video_path)
+                print(f"Processed Video Path: {video_path}")
+                yvu.rename_files(temp_dir)
+                # Upload the processed file to Dataiku
+                di.upload_files(video_path)
+
+                # Store success message in Streamlit session state
+                st.session_state.uploaded = "File uploaded successfully!"
+                # st.success(st.session_state.uploaded)
+            # st.success(f"Received YouTube link: {youtube_link}")
+            # video_path = yvu.download_youtube_video(youtube_link, inp.youtube_download_folder)
+            # video_path = yvu.rename_video_path(video_path)
+            # print(video_path)
+            # yvu.rename_files(inp.youtube_download_folder)
+            # di.upload_files(video_path)
+            # st.session_state.uploaded="Files uploaded to Dataiku successfully!"
+            # st.success(st.session_state.uploaded)
 
     cols=st.columns([0.1,0.1,0.8],vertical_alignment='center')
 

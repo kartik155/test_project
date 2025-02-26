@@ -3,18 +3,19 @@ import yt_dlp
 import re
 import input_params as inp
 import unicodedata
-
+import shutil
 
 def download_youtube_video(url, save_path="./"):
     if not os.path.exists(save_path):
-        os.makedirs(save_path)
+        shutil.rmtree(save_path)
+    os.makedirs(save_path)
     try:        
         # Extract video information without downloading
         with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
             info = ydl.extract_info(url, download=False)
             video_title = info.get('title', 'Unknown Title')
             file_path = os.path.join(save_path, f"{video_title}.mp4")
-            path=extract_text_and_numbers(file_path)
+            path=rename_video_path(file_path)
 
         # Check if the file already exists
         if os.path.exists(path):

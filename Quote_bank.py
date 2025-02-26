@@ -18,7 +18,7 @@ def Quote_Bank():
     client = dataikuapi.DSSClient(dataiku_url, dataiku_api_key,no_check_certificate=True)
     project = client.get_project("HAWKAI")
 
-    # st.set_page_config(page_title="Quote Bank", page_icon="images/gemini_avatar.png", layout="wide",initial_sidebar_state="collapsed")
+    # st.set_page_config(page_title="Quote Bank", page_icon="gemini_avatar.png", layout="wide",initial_sidebar_state="collapsed")
 
     st.session_state.transcript = None
     st.session_state.hist_list = []

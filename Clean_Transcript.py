@@ -215,6 +215,7 @@ def Clean_Transcript():
     # Update session state immediately
     if upload_option != st.session_state.upload_option:
         st.session_state.upload_option = upload_option
+        st.session_state.clean_transcript=None
         st.rerun()  # Force Streamlit to refresh and update the label instantly
 
 

@@ -146,12 +146,12 @@ def Quote_Bank():
     main_cols = st.columns(8)
     with main_cols[0]:
         st.write("")
-        st.image('images/Header_logo.png', width=150)
+        st.image('Header_logo.png', width=150)
 
     with main_cols[7]:
         st.write("")
         st.write("")
-        st.image("images/BGNE_BIG.svg", width=150)
+        st.image("BGNE_BIG.svg", width=150)
     # st.markdown("<div class=header-title> Quote Bank Creation </div>",unsafe_allow_html=True)
     # st.title("Quote Bank Creation")
     file_name=di.get_filename()

@@ -31,21 +31,21 @@ def Clean_Transcript():
     st.markdown(custom_css,unsafe_allow_html=True)
     
     avatars = {
-    "assistant" : "gemini-logo.svg",
-    "user": "VG.png"
+    "assistant" : "images/gemini-logo.svg",
+    "user": "images/VG.png"
     }
     
 
     main_cols = st.columns(8)
     with main_cols[0]:
         st.write("")
-        st.image('Header_logo.png', width=150)
+        st.image('images/Header_logo.png', width=150)
 
     with main_cols[7]:
         st.write("")
         st.write("")
         st.write("")
-        st.image("BGNE_BIG.svg", width=150)
+        st.image("images/BGNE_BIG.svg", width=150)
 
 
 
@@ -220,7 +220,7 @@ def Clean_Transcript():
                     
                     # Call the function to upload files
                     di.upload_files(temp_dir)
-                st.session_state.uploaded="All Files uploaded to Dataiku successfully!"
+                st.session_state.uploaded="All Files uploaded successfully!"
 
                     # st.success(st.session_state.uploaded)
         else:  # Upload YouTube Link
@@ -240,7 +240,7 @@ def Clean_Transcript():
                     di.upload_files(video_path)
 
                     # Store success message in Streamlit session state
-                    st.session_state.uploaded = "File uploaded to Dataiku successfully!"
+                    st.session_state.uploaded = "File uploaded successfully!"
                     # st.success(st.session_state.uploaded)
                 # st.success(f"Received YouTube link: {youtube_link}")
                 # video_path = yvu.download_youtube_video(youtube_link, inp.youtube_download_folder)
@@ -259,21 +259,21 @@ def Clean_Transcript():
         # Dropdown with default value as "English"
         selected_language = st.selectbox("Select transcription language:", languages, index=languages.index("English"))
 
-    cols=st.columns([0.2,0.8],vertical_alignment='center')
+    cols=st.columns([0.1,0.1,0.8],vertical_alignment='center')
 
     chat_container = st.container()
     with cols[0]:
         placeholder_button=st.empty() 
-        placeholder_download=st.empty()       
+        # placeholder_download=st.empty()       
         if st.session_state.uploaded: 
             # st.button("Start Processing", on_click=process)
             st.session_state.upload_button=False
             placeholder_button.button("Start Processing", on_click=process)
         else: 
-            placeholder_button.button("Upload to dataiku",on_click=upload_button)
+            placeholder_button.button("Upload",on_click=upload_button)
 
     
-    with cols[1]:
+    with cols[2]:
         placeholder=st.empty()
         if st.session_state.uploaded:
             placeholder.success(st.session_state.uploaded)
@@ -285,7 +285,6 @@ def Clean_Transcript():
                 # if st.session_state.clean_transcript:
                 #     placeholder_button.download_button("Download Cleaned Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
                 placeholder.success("✅ All set! The video has been successfully transcribed, and your Q&A is ready to explore. Dive in and ask away!")
-                time.sleep(2)
                 st.session_state.starter_question_display="Yes"
                 # with chat_container:
                 #     st.markdown('<div class="starter-questions-header">Examples</div>',unsafe_allow_html=True)
@@ -297,10 +296,14 @@ def Clean_Transcript():
             else:    
                 placeholder.warning("Please enter the Url or Upload the files")
             st.session_state.process=False  
-        if st.session_state.clean_transcript:
-            placeholder.download_button("Download Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
-
         
+    with cols[1]:   
+        placeholder_download=st.empty() 
+        if st.session_state.clean_transcript:
+            # placeholder_button.download_button("Download Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
+            # st.session_state.upload_button=False
+            # st.session_state.uploaded=None
+            placeholder_download.download_button("Download Transcript",st.session_state.clean_transcript, file_name="Clean_Transcript.txt", mime="text/plain")
         # st.write(f"value {st.session_state.starter_question_display}")
         if st.session_state.starter_question_display=="Yes":
             with chat_container:
@@ -322,7 +325,7 @@ def Clean_Transcript():
         st.session_state.starter_question_display="No"
         st.session_state.starter_question=False
         # st.write(st.session_state.starter_question_display)
-        # placeholder.empty()
+        placeholder.empty()
         # if uploaded_transcript:    
         with chat_container:
             # Display previous chat messages

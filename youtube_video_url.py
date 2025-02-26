@@ -3,8 +3,8 @@ import yt_dlp
 import re
 import input_params as inp
 import unicodedata
+import streamlit as st
 import shutil
-
 def download_youtube_video(url, save_path="./"):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
@@ -15,6 +15,7 @@ def download_youtube_video(url, save_path="./"):
             info = ydl.extract_info(url, download=False)
             video_title = info.get('title', 'Unknown Title')
             file_path = os.path.join(save_path, f"{video_title}.mp4")
+            # path=extract_text_and_numbers(file_path)
             path=rename_video_path(file_path)
 
         # Check if the file already exists
@@ -34,6 +35,8 @@ def download_youtube_video(url, save_path="./"):
             ydl.download([url])
 
         print(f"Download completed! Video saved to: {file_path}")
+        # st.write(file_path)
+        
         print(file_path)
         return file_path
     except Exception as e:
@@ -63,7 +66,7 @@ def extract_text_and_numbers(filename):
   
   # Replace "mp4" with ".mp4"
   extracted_text = extracted_text.replace(" mp4", ".mp4")        
-  extracted_text = extracted_text.replace("download folder ",f"{inp.youtube_download_folder}\\" )
+  extracted_text = extracted_text.replace("download folder ",f"{inp.downloaded_folder}\\" )
 
   return extracted_text
 

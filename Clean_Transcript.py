@@ -221,22 +221,23 @@ def Clean_Transcript():
     if not st.session_state.upload_option:  # Default: Upload Files
         # st.write("Uploading files")
         uploaded_files = st.file_uploader("Upload your files", accept_multiple_files=True)
-        temp_dir = inp.downloaded_folder
-        if not os.path.exists(temp_dir):
-            os.makedirs(temp_dir)
-        for uploaded_file in uploaded_files:
-            if is_valid_file(uploaded_file.name):
+        if uploaded_files and st.session_state.upload_button==True:
+            temp_dir = inp.downloaded_folder
+            if not os.path.exists(temp_dir):
+                os.makedirs(temp_dir)
+            for uploaded_file in uploaded_files:
+                if is_valid_file(uploaded_file.name):
+                    
+                    file_path = os.path.join(temp_dir,uploaded_file.name)
+                    st.session_state.video_path=file_path
+                    # Save file to temp folder
+                    with open(file_path, "wb") as f:
+                        f.write(uploaded_file.getbuffer())
                 
-                file_path = os.path.join(temp_dir,uploaded_file.name)
-                st.session_state.video_path=file_path
-                # Save file to temp folder
-                with open(file_path, "wb") as f:
-                    f.write(uploaded_file.getbuffer())
-            
-            # Call the function to upload files
-            # di.upload_files(temp_dir)
-            st.session_state.uploaded="All Files uploaded successfully!"
-            # st.write(file_path)
+                # Call the function to upload files
+                # di.upload_files(temp_dir)
+                st.session_state.uploaded="All Files uploaded successfully!"
+                # st.write(file_path)
             
                 # st.success(st.session_state.uploaded)
     else:  # Upload YouTube Link

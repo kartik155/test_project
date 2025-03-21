@@ -261,7 +261,7 @@ def Clean_Transcript():
             # di.upload_files(video_path)
 
             # Store success message in Streamlit session state
-            st.session_state.uploaded = "File uploaded successfully!"
+            st.session_state.uploaded = "Video ready for processing"
                 # st.success(st.session_state.uploaded)
             # st.success(f"Received YouTube link: {youtube_link}")
             # video_path = yvu.download_youtube_video(youtube_link, inp.youtube_download_folder)

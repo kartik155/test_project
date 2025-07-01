@@ -49,7 +49,7 @@ def download_youtube_video(url, save_path="./"):
             ydl_opts = {
                 'format': format_strategy,
                 'outtmpl': os.path.join(save_path, '%(title)s.%(ext)s'),
-                'cookiefile': 'cookies.txt',  # Path to your cookies file
+                # 'cookiefile': 'cookies.txt',  # Path to your cookies file
                 'verbose': True,  # Enable verbose output for debugging
                 }
  
